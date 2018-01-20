@@ -405,10 +405,6 @@
         // ------------------------------------------------------------
         // INCLUDE JAVASCRIPT FILES
         // ------------------------------------------------------------ ?>
-
-    <script
-        type="text/javascript"
-        src="<?php echo base_url('assets/js/general_functions.js'); ?>"></script>
     <script
         type="text/javascript"
         src="<?php echo base_url('assets/ext/jquery/jquery.min.js'); ?>"></script>
@@ -424,6 +420,9 @@
     <script
         type="text/javascript"
         src="<?php echo base_url('assets/ext/datejs/date.js'); ?>"></script>
+    <script
+            type="text/javascript"
+            src="<?php echo base_url('assets/js/general_functions.js'); ?>"></script>
     <script
         type="text/javascript"
         src="<?php echo base_url('assets/js/frontend_book_api.js'); ?>"></script>
