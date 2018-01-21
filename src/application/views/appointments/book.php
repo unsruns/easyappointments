@@ -385,7 +385,7 @@
         // ------------------------------------------------------------ ?>
 
     <script type="text/javascript">
-        var GlobalVariables = {
+        let GlobalVariables = {
             availableServices   : <?php echo json_encode($available_services); ?>,
             availableProviders  : <?php echo json_encode($available_providers); ?>,
             baseUrl             : <?php echo json_encode($this->config->item('base_url')); ?>,
@@ -397,8 +397,8 @@
             csrfToken           : <?php echo json_encode($this->security->get_csrf_hash()); ?>
         };
 
-        var EALang = <?php echo json_encode($this->lang->language); ?>;
-        var availableLanguages = <?php echo json_encode($this->config->item('available_languages')); ?>;
+        let EALang              = <?php echo json_encode($this->lang->language); ?>;
+        let availableLanguages  = <?php echo json_encode($this->config->item('available_languages')); ?>;
     </script>
 
     <?php
@@ -407,7 +407,7 @@
         // ------------------------------------------------------------ ?>
     <script
         type="text/javascript"
-        src="<?php echo base_url('assets/ext/jquery/jquery.min.js'); ?>"></script>
+        src="<?php echo base_url('assets/ext/jquery/jquery.min.js') ?>"></script>
     <script
         type="text/javascript"
         src="<?php echo base_url('assets/ext/jquery-ui/jquery-ui.min.js'); ?>"></script>
@@ -428,7 +428,7 @@
         src="<?php echo base_url('assets/js/frontend_book_api.js'); ?>"></script>
     <script
         type="text/javascript"
-        src="<?php echo base_url('assets/js/frontend_book.js'); ?>"></script>
+        src="<?php echo base_url('assets/js/frontend_book.js')."?v=".microtime(true); ?>"></script>
 
     <?php
         // ------------------------------------------------------------
@@ -436,9 +436,9 @@
         // ------------------------------------------------------------ ?>
 
     <script type="text/javascript">
-    $(document).ready(function() {
-            FrontendBook.initialize(true, GlobalVariables.manageMode);
+        $(document).ready(function() {
             GeneralFunctions.enableLanguageSelection($('#select-language'));
+            let frontendBook    =   new FrontendBook(true, GlobalVariables.manageMode);
         });
     </script>
 

@@ -20,40 +20,63 @@
 
     'use strict';
 
+
+    /**
+     * General Functions Constants
+     */
+
+    const _EXCEPTIONS_TITLE          = EALang['unexpected_issues'];
+    const _EXCEPTIONS_MESSAGE        = EALang['unexpected_issues_message'];
+    const _WARNINGS_TITLE            = EALang['unexpected_warnings'];
+    const _WARNINGS_MESSAGE          = EALang['unexpected_warnings_message'];
+    const _MESSAGE_BOX_SELECTOR      = "#message_box";
+    const _LANGUAGE_LIST_SELECTOR    = "#language-list";
+
+
     class GeneralFunctions {
+
 
         /**
          * General Functions Constants
          */
 
-        static EXCEPTIONS_TITLE ()   {
-            return EALang['unexpected_issues'];
-        }
-        static EXCEPTIONS_MESSAGE ()  {
-            return EALang['unexpected_issues_message'];
+        static get EXCEPTIONS_TITLE()
+        {
+            return _EXCEPTIONS_TITLE;
         }
 
-        static WARNINGS_TITLE ()  {
-            return EALang['unexpected_warnings'];
+        static get EXCEPTIONS_MESSAGE()
+        {
+            return _EXCEPTIONS_MESSAGE;
         }
 
-        static WARNINGS_MESSAGE ()  {
-            return EALang['unexpected_warnings_message'];
+        static get WARNINGS_TITLE()
+        {
+            return _WARNINGS_TITLE;
         }
+
+        static get WARNINGS_MESSAGE()
+        {
+            return _WARNINGS_MESSAGE;
+        }
+
+        /**
+         * @returns {string}
+         */
+        static  get MESSAGE_BOX_SELECTOR()
+        {
+            return _MESSAGE_BOX_SELECTOR;
+        }
+
 
         /**
          * @return {string}
          */
-        static MESSAGE_BOX_SELECTOR () {
-            return "#message_box";
+        static get LANGUAGE_LIST_SELECTOR()
+        {
+            return _LANGUAGE_LIST_SELECTOR;
         }
 
-        /**
-         * @return {string}
-         */
-        static LANGUAGE_LIST_SELECTOR () {
-            return "#language-list";
-        }
 
         /**
          * This functions displays a message box in the admin array. It is useful when user
@@ -61,24 +84,28 @@
          *
          * @param {String} title The title of the message box.
          * @param {String} message The message of the dialog.
-         * @param {Array} messageButtons Contains the dialog buttons along with their functions.
+         * @param {Array | undefined | Object} messageButtons Contains the dialog buttons along with their functions.
          */
         static displayMessageBox(title = "<No Title Given>", message="<No Message Given>", messageButtons = undefined) {
 
             if (messageButtons === undefined) {
                 messageButtons = {};
-                messageButtons[EALang['close']] =  ()  => {
+                messageButtons[EALang['close']] =  function() {
                     $(GeneralFunctions.MESSAGE_BOX_SELECTOR).dialog('close');
                 }
             }
 
+            console.log(GeneralFunctions.MESSAGE_BOX_SELECTOR.toString().slice(1));
+
             // Destroy previous dialog instances.
-            $(GeneralFunctions.MESSAGE_BOX_SELECTOR).dialog('destroy');
-            $(GeneralFunctions.MESSAGE_BOX_SELECTOR).remove();
+            if ($(GeneralFunctions.MESSAGE_BOX_SELECTOR).length){
+                $(GeneralFunctions.MESSAGE_BOX_SELECTOR).dialog('destroy');
+                $(GeneralFunctions.MESSAGE_BOX_SELECTOR).remove();
+            }
 
             // Create the html of the message box.
             $('body').append(
-                '<div id="message_box" title="' + title + '">' +
+                '<div id='+GeneralFunctions.MESSAGE_BOX_SELECTOR.toString().slice(1)+' title="' + title + '">' +
                 '<p>' + message + '</p>' +
                 '</div>'
             );
@@ -420,9 +447,9 @@
 
          * @return {String} Returns the formatted date string.
          */
-        static formatDate (date, dateFormatSetting, addHours) {
+        static formatDate (date, dateFormatSetting, addHours='') {
             let format, result;
-            let hours = addHours ? ' HH:mm' : '';
+            let hours = addHours;
 
             switch (dateFormatSetting) {
                 case 'DMY':
